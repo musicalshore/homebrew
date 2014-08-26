@@ -27,13 +27,17 @@ class Mongodb < Formula
   depends_on "scons" => :build
   depends_on "openssl" => :optional
 
+  def patches
+    { :p1 => 'https://gist.githubusercontent.com/LinusU/a1771562fec0201c54cd/raw/98825f9fbe93b8cc524e05a9c0e99864e8301731/mongodb.diff' }
+  end
+
   def install
     args = %W[
       --prefix=#{prefix}
       -j#{ENV.make_jobs}
       --cc=#{ENV.cc}
       --cxx=#{ENV.cxx}
-      --osx-version-min=#{MacOS.version}
+      --osx-version-min=10.9
     ]
 
     # --full installs development headers and client library, not just binaries
